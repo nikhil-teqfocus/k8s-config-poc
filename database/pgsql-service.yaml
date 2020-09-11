@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: confluence-db
+  namespace: confluence
+  labels:
+    app: confluence-db
+spec:
+  selector:
+    app: confluence-db
+  ports:
+  - name: pgsql
+    port: 5432
+    targetPort: 5432
+    protocol: TCP

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: confluence
+  name: confluence-db
+spec:
+  serviceName: confluence-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: confluence-db
+  template:
+    metadata:
+      labels:
+        app: confluence-db
+    spec:
+      containers:
+        - name: confluence-db
+          image: postgres:9.6
+          env:
+            - name: POSTGRES_PASSWORD
+              value: test123
+            - name: POSTGRES_USER
+              value: 
+          resources:
+            requests:
+              cpu: 2
+              memory: 2Gi
+            limits:
+              cpu: 2
+              memory: 2Gi
+          ports:
+            - containerPort: 5432
+#          volumeMounts:
+#            - mountPath: "/var/lib/postgresql/data/"
+#              name: {{volume}}
+#      volumes:
+#        - name: {{volume}}
+#          persistentVolumeClaim:
+#            claimName: {{volumeclaim}}
